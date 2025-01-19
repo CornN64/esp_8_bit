@@ -1,4 +1,4 @@
-#pragma GCC optimize ("O2")
+#pragma GCC optimize ("Os")
 #pragma once
 #define PAL 0
 #define NTSC 1
@@ -17,6 +17,13 @@
 /*Choose one of the following emulators: EMU_NES,EMU_SMS,EMU_ATARI*/
 /******************************************************************/
 #define EMULATOR EMU_NES
+
+/*********************************************************************************/
+/*Set maximum number of rendered sprites per scan line on NES, default is 8 but  */
+/*64 will remove/reduce flickering and works on most games (choose your poison)  */
+/*********************************************************************************/
+//#define NES_MAX_SPRITES 8
+#define NES_MAX_SPRITES 64
 
 /******************************************************************/
 /*Many emus work fine on a single core (S2), file system access can cause a little flickering*/
@@ -58,7 +65,7 @@
 
 // Define this to enable SD card with FAT 8.3 filenames
 // Note that each emulator has its own folder. Place ROMs under /nonfredo for NES, /smsplus for SMS and /atari800 for atari
-//#define USE_SD_CARD
+#define USE_SD_CARD
 // SD card pin mapping
 #define CONFIG_SD_CS 15
 #define CONFIG_SD_MOSI 13
@@ -68,9 +75,9 @@
 /****************************************************************/
 /*Controller support*/
 /****************************************************************/
-#define WEBTV_KEYBOARD
-#define RETCON_CONTROLLER
-#define FLASHBACK_CONTROLLER
+//#define WEBTV_KEYBOARD
+//#define RETCON_CONTROLLER
+//#define FLASHBACK_CONTROLLER
 //#define APPLE_TV_CONTROLLER
 #define NES_CONTROLLER	//Enable only NES OR SNES not both!
 //#define SNES_CONTROLLER	//Enable only NES OR SNES not both!
@@ -78,7 +85,7 @@
 /****************************************************************/
 /*Video levels*/
 /****************************************************************/
-#define SYNC_SIZE        40 //Lowering this to like 35 can help sync issues at times
+#define SYNC_SIZE        40 //Lowering this to like 35 can help sync issues at times (30-40)
 #define IRE(_x)          ((uint32_t)(((_x)+SYNC_SIZE)*255/3.3/147.5) << 8)   // 3.3V DAC output
 #define SYNC_LEVEL       IRE(-SYNC_SIZE)
 #define BLANKING_LEVEL   IRE(0)

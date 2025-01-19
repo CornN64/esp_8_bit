@@ -38,7 +38,11 @@
 
 #include "../config.h"
 
-#ifdef IR_PIN || NES_CTRL_LATCH
+#ifdef IR_PIN
+#include "ir_input.h"  // ir & HW peripherals
+#endif
+
+#ifdef NES_CTRL_LATCH
 #include "ir_input.h"  // ir & HW peripherals
 #endif
 

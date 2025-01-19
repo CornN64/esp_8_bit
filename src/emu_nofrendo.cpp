@@ -509,9 +509,11 @@ public:
 
     virtual int make_default_media(const string& path)
     {
+#ifndef USE_SD_CARD        
         unpack((path + "/sokoban.nes").c_str(),sokoban_nes,sizeof(sokoban_nes));
         unpack((path + "/chase.nes").c_str(),chase_nes,sizeof(chase_nes));
         unpack((path + "/tokumaru_raycast.nes").c_str(),tokumaru_raycast_nes,sizeof(tokumaru_raycast_nes));
+#endif		
         return 0;
     }
 };

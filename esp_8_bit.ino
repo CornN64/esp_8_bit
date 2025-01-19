@@ -15,7 +15,8 @@
 */
 
 #include "esp_system.h"
-#include "esp_int_wdt.h"
+#include "esp_int_wdt.h" //old 1.0 esp32 libs
+//#include "esp_private/esp_int_wdt.h" //new 3.0 esp32 libs
 #include "esp_spiffs.h"
 #include "esp_vfs_fat.h"
 #include "sdmmc_cmd.h"
@@ -24,6 +25,10 @@
 #include "config.h"
 #include "src/emu.h"
 #include "src/video_out.h"
+
+//Long file name support
+//#define CONFIG_FATFS_LFN_STACK 1
+//#define CONFIG_FATFS_MAX_LFN 64
 
 // esp_8_bit
 // Atari 8 computers, NES and SMS game consoles on your TV with nothing more than a ESP32 and a sense of nostalgia
@@ -141,7 +146,7 @@ void setup()
   int silicon_version = (REG_READ(EFUSE_BLK0_RDATA3_REG) >> 15) & 1;
   if (silicon_version == 0)
     printf("Warning this revision of the chip has an issue with the APLL and will not work properly!\n");
-      
+    
   rtc_clk_cpu_freq_set(RTC_CPU_FREQ_240M);  
   mount_filesystem();                       // mount the filesystem!
   _emu = NewEmulator();                     // create the emulator!
